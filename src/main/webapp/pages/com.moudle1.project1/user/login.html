@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <!--[vue9-mix]  晚上慢！[日期正常！radio格式正常(源于element-ui@1.4)！   ]  dialog正常 ，   this.$http ：  https://github.com/lzcwfx/jeecg-business/blob/a85710d67c3406d475b2d895f3d6a6af7665badd/src/main/webapp/webpage/com/jeecg/demo/vueList.jsp-->
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script> <!--this.$http  Vue.http.options.emulateJSON = true;-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@1.4/lib/theme-default/index.css">
+    <script src="https://unpkg.com/element-ui@1.4/lib/index.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <!--下载：此处 页面有很少的地方错乱！ -->
+    <!--<script type="text/javascript" src="/public/com.moudle1/static/js/vue/vue9-mix/vue.js"></script>-->
+    <!--<script type="text/javascript" src="/public/com.moudle1/static/js/vue/vue9-mix/vue-resource.js"></script>-->
+    <!--<link rel="stylesheet"        href="/public/com.moudle1/static/js/vue/vue10-unpkg-pure/elementUi/index.css">-->
+    <!--<script type="text/javascript" src="/public/com.moudle1/static/js/vue/vue10-unpkg-pure/elementUi/index.js"></script>-->
+
+
+    <script type="text/javascript" src="/public/com.moudle1/static/js/app/login.js"></script>
+    <script src="https://unpkg.com/vuex@2.3.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.3.1/vuex.min.js"></script>
+
+</head>
+<body>
+<div id="app_login" style="overflow-x:hidden;" v-loading="loading" element-loading-text="拼命加载中">
+
+    <el-form :model="loginDatas" :rules="rules" ref="addFormOut_valid" label-width="100px">
+        <el-row>
+            <el-col :span="8">
+                <el-form-item label="用户名：" prop="id"><el-input v-model="loginDatas.username" ></el-input></el-form-item>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="8">
+                <el-form-item label="密码：" prop="name"><el-input v-model="loginDatas.password" :disabled="false"></el-input></el-form-item>
+            </el-col>
+        </el-row>
+
+    </el-form>
+
+    <div slot="footer" class="dialog-footer">
+        <el-button class="confirmOk_add"      @click="submitLogin">登录</el-button>
+    </div>
+
+</div>
+
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app_login',
+        mounted: function () {
+            // this.loadData();
+        },
+        data: {
+            loginDatas:  {
+                username: "test",
+                password: "123456",
+                mobile: "",
+                verifyCode: ""
+            },
+            saveLogin: true,
+
+            addFormOut: {},
+
+            loading: false,
+
+            rules: {
+                // name: [{required: true, message: '请输入姓名', trigger: 'blur'},],
+                // pwd: [{required: true, message: '请输入密码', trigger: 'blur'},
+                //     {min: 2, max: 15, message: '长度为2至15个字符', trigger: 'blur'},],
+                // sex: [{required: true, message: '请输入性别', trigger: 'blur'},],
+
+
+            },
+
+            dialogDatas: [],
+
+        },
+
+        methods: {
+            submitLogin: function () {
+
+                var param = {
+                    username: this.loginDatas.username,
+                    password: this.loginDatas.password,
+                    'saveLogin': this.saveLogin
+                }
+                // debugger
+                this.postRequest('/login', param) //vm.$data.page4 / this.page4
+                    .then(function(res){
+                        debugger
+                        if (res.success === true) {
+                            // this.$message({type: 'success', message: '登录成功!'});
+
+                            // http://localhost:1911/upmsTestuserController/test3
+                            window.location.href='/upmsTestuserController/test3'
+
+
+                            // this.setStore("accessToken", res.result);
+                            // // 获取用户信息
+                            // this.getRequest("/user/info").then(res => {
+                            //     if (res.success === true) {
+                            //         // 避免超过大小限制
+                            //         delete res.result.permissions;
+                            //         // if (this.saveLogin) {
+                            //         //     // 保存7天
+                            //         //     Cookies.set("userInfo", JSON.stringify(res.result), {
+                            //         //         expires: 7
+                            //         //     });
+                            //         // } else {
+                            //         //     Cookies.set("userInfo", JSON.stringify(res.result));
+                            //         // }
+                            //         setStore("userInfo", res.result);
+                            //         this.$store.commit("setAvatarPath", res.result.avatar);
+                            //         // 加载菜单
+                            //         util.initRouter(this);
+                            //         this.$router.push({
+                            //             name: "home_index"
+                            //         });
+                            //     } else {
+                            //         this.loading = false;
+                            //     }
+                            // });
+                        }
+
+                    },function(){
+                        console.log('failed');
+                    })
+                    .catch(function (e) {
+                        // this.formLoading = false;
+                    } )
+
+                // this.$http.post('/xboot/login', param) //vm.$data.page4 / this.page4
+                //     .then(function(res){
+                //         if (res.success === true) {
+                //             this.$message({type: 'success', message: '登录成功!'});
+                //
+                //         }
+                //
+                //     },function(){
+                //         console.log('failed');
+                //     })
+                //     .catch(function (e) {
+                //         // this.formLoading = false;
+                //     } )
+            },
+
+            postRequest: function (url, params) {
+                let accessToken = this.getStore("accessToken");
+                return axios({  //axios  this.$http
+                    method: 'post',
+                    url: '/xboot' + url,
+                    data: params,
+                    transformRequest: [function (data) {
+                        let ret = '';
+                        for (let it in data) {
+                            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&';
+                        }
+                        return ret;
+                    }],
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'accessToken': accessToken
+                    }
+                });
+            },
+
+            getRequest: function(url, params){
+                let accessToken = getStore('accessToken');
+                return axios({
+                    method: 'get',
+                    url: '/xboot' + url, // `${base}${url}`,
+                    params: params,
+                    headers: {
+                        'accessToken': accessToken
+                    }
+                });
+            },
+
+            getStore: function(name) {
+                if (!name) return;
+                return window.localStorage.getItem(name);
+            },
+            setStore: function(name, content){
+                if (!name) return;
+                if (typeof content !== 'string') {
+                    content = JSON.stringify(content);
+                }
+                window.localStorage.setItem(name, content);
+            },
+
+        }
+
+    })
+</script>
+</html>

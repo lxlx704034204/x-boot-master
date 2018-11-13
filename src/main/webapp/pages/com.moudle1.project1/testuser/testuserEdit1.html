@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> <!--lang="en" xmlns="http://www.w3.org/1999/html" -->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>UpmsTestuser.list0.html</title>
+    <!--
+    下载vue.js:
+        http://www.runoob.com/vue2/vue-install.html
+
+    -->
+
+    <!-- 晚上也超快！[日期报错！radio格式异常！]  dialog正常 ， this.$http.post:    https://github.com/Feiwenkeke/jsp_web_webapp/blob/5be85d28e75e48ca94f80c26a74299191e8ebe37/web/ch3_show.jsp-->
+    <!--<script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/element-ui/1.4.0/index.js"></script>-->
+    <!--<link  href="https://cdn.bootcss.com/element-ui/1.4.0/theme-default/index.css" rel="stylesheet">-->
+    <!--<link  href="https://cdn.bootcss.com/element-ui/1.4.0/theme-chalk/index.css" rel="stylesheet">-->
+    <!--<script src="http://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>-->
+
+
+
+    <!--[vue10-unpkg-pure] 晚上慢！ [日期正常！radio格式异常！]  dialog正常 ， this.$http.post: https://github.com/bairuifei/chpro/blob/c26f110a29539958e06ddc953ef8e866193ff863/src/main/webapp/webpage/com/jeecg/demo/vueNewList.jsp-->
+    <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script>-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui@1.4/lib/theme-default/index.css">-->
+    <!--<script src="https://unpkg.com/element-ui@1.4/lib/index.js"></script>-->
+
+    <!--下载：不用@1.4是最新(2.3.7)的,最新的style错乱，【官方推荐@1.4】。    此处 页面有很少的地方错乱！-->
+    <!--<script type="text/javascript" src="/sh/js/vue/vue10-unpkg-pure/vue.js"></script>-->
+    <!--<script type="text/javascript" src="/sh/js/vue/vue10-unpkg-pure/vue-resource.js"></script>-->
+    <!--<link rel="stylesheet"        href="/sh/js/vue/vue10-unpkg-pure/elementUi/index.css">-->
+    <!--<script type="text/javascript" src="/sh/js/vue/vue10-unpkg-pure/elementUi/index.js"></script>-->
+
+
+
+
+
+
+    <!--[vue9-mix]  晚上慢！[日期正常！radio格式正常(源于element-ui@1.4)！   ]  dialog正常 ，   this.$http ：  https://github.com/lzcwfx/jeecg-business/blob/a85710d67c3406d475b2d895f3d6a6af7665badd/src/main/webapp/webpage/com/jeecg/demo/vueList.jsp-->
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script> &lt;!&ndash;this.$http  Vue.http.options.emulateJSON = true;&ndash;&gt;-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui@1.4/lib/theme-default/index.css">-->
+    <!--<script src="https://unpkg.com/element-ui@1.4/lib/index.js"></script>-->
+    <!--下载：此处 页面有很少的地方错乱！ -->
+    <script type="text/javascript" src="/public/com.moudle1/static/js/vue/vue9-mix/vue.js"></script>
+    <script type="text/javascript" src="/public/com.moudle1/static/js/vue/vue9-mix/vue-resource.js"></script>
+    <link rel="stylesheet"        href="/public/com.moudle1/static/js/vue/vue10-unpkg-pure/elementUi/index.css">
+    <script type="text/javascript" src="/public/com.moudle1/static/js/vue/vue10-unpkg-pure/elementUi/index.js"></script>
+
+
+
+
+    <script type="text/javascript" src="/public/com.moudle1/static/js/app/login.js"></script>
+
+
+</head>
+<body>
+<div id="app3" style="overflow-x:hidden;" v-loading="loading" element-loading-text="拼命加载中">
+    <!--<el-input v-model="input" placeholder="请输入内容"></el-input>-->
+    <!--<el-button @click.native="visible = true">按钮</el-button>-->
+
+    <el-collapse value="1" ><!--value="1" 表示 展开,不写默认折叠-->
+        <el-collapse-item title="查询条件" name="1">
+            <el-row>
+                <el-col :span="4"><div class="query_label">姓名：</div></el-col><!--"query_label"使得每一行的冒号对其-->
+                <el-col :span="6"><el-input v-model="page4.query.name" placeholder="请输入姓名"></el-input></el-col>
+
+                <el-col :span="4"><div class="query_label">区域：</div></el-col>
+                <el-col :span="6">
+                    <el-select v-model="page4.query.region" placeholder="请选择区域" style="width:100%"><!--宽度充满:span="6"-->
+                        <el-option v-for ="item in regionOptions"
+                                   :key  ="item.value"
+                                   :label="item.label"
+                                   :value="item.value" >
+                        </el-option><!--dictid, dictname,dictid-->
+                    </el-select>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :offfset="10"><el-button  icon="search"  @click="queryPage">查询</el-button></el-col>
+                <!--<el-col :offfset="10"><el-button class="returnButton" @click="query">查询</el-button></el-col>-->
+            </el-row>
+
+        </el-collapse-item>
+    </el-collapse>
+
+    <el-row>
+        <el-collapse value="1" >
+            <el-collapse-item title="查询结果" name="1">
+                <!--<div class="addPng" @click="delete_multiple">&lt;!&ndash;    v-bind:style="{display:funTabreadOn}"&ndash;&gt;
+                    <span>多笔删除</span>
+                    &lt;!&ndash;<img alt="" th:src="@{../../static/images/logo.png}" style="height:18px;"><span>多笔删除</span>&ndash;&gt;
+                    &lt;!&ndash;<img alt="" src="../../static/images/logo.png" style="height:18px;"><span>多笔删除</span>&ndash;&gt;
+                </div>
+                <div class="editPng" @click="addBut">
+                    <span>新增</span>
+                    &lt;!&ndash;<img alt="" th:src="@{../../static/images/logo.png}" style="height:18px;"><span>新增</span>&ndash;&gt;
+                    &lt;!&ndash;<img alt="" src="../../static/images/logo.png" style="height:18px;"><span>新增</span>&ndash;&gt;
+                </div>-->
+                <el-button  type="text" @click="delete_multiple" >多笔删除</el-button>
+                <el-button  type="text" @click="addBut" >添加</el-button>
+
+                <el-input placeholder="请输入内容" v-model="criteria" style="padding-bottom:10px;">
+                    <el-select v-model="select" slot="prepend" placeholder="请选择">
+                        <el-option label="id" value="1"></el-option>
+                        <el-option label="name" value="2"></el-option>
+                    </el-select>
+                    <el-button slot="append" icon="search" v-on:click="search"></el-button>
+                </el-input>
+
+
+                <el-table :data="tableData" border @selection-change="handleSelectionChange" style="width:100%"
+                          :default-sort = "{prop: 'age', order: 'ascending'}"
+                          @row-click="handleclick" :row-class-name = "tableRowClassName" >
+                    <el-table-column type="selection"></el-table-column>
+                    <el-table-column label="编号" prop="id"></el-table-column>
+                    <el-table-column label="名字" width="100" >
+                        <template scope="scope"><el-input v-model="scope.row.name" class="mumCenter"></el-input></template>
+                    </el-table-column>
+                    <el-table-column label="邮箱" prop="email" width="200"></el-table-column>
+                    <el-table-column label="性别" prop="sex" :formatter="formatterSex"></el-table-column>
+                    <el-table-column label="年龄" prop="age" show-overflow-tooltip sortable></el-table-column>
+                    <el-table-column label="生日" prop="birthday"></el-table-column>
+                    <el-table-column label="地区" prop="region" :formatter="formatterRegion"></el-table-column>
+                    <el-table-column label="操作" prop="sex"></el-table-column>
+                    <el-table-column label="性别" prop="sex"   width="180">
+                        <template scope="scope">
+                            <!--<el-button @click="handleEdit(scope.row)"   :plain="true" style="width:30px;">编辑</el-button>-->
+                            <!--<el-button @click="delete_one(scope.row)" :plain="true" style="width:30px;">删除</el-button>-->
+                            <el-button size="small" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                            <el-button size="small" type="danger"  @click="delete_one(scope.$index, scope.row)">删除</el-button>
+
+                        </template>
+                    </el-table-column>
+
+                </el-table>
+
+                <div align="center">
+                    <el-pagination
+                            @size-change="handleSizeChange"
+                            @current-change="handleCurrentChange"
+                            :current-page="page4.pageNumber"
+                            :page-sizes="[2, 10, 20, 30, 40]"
+                            :page-size="page4.pageSize"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :total="page4.totalCount">
+                    </el-pagination>
+                </div>
+
+            </el-collapse-item><!--查询结果===末===-->
+        </el-collapse>
+    </el-row>
+
+    <el-dialog title="新增用户" :visible.sync="dialogFormVisible" style="width:100%;" size="large">
+        <el-form :model="addFormOut" :rules="rules" ref="addFormOut_valid" label-width="100px">
+            <el-row>
+                <el-col :span="8">
+                    <el-form-item label="编号：" prop="id"><el-input v-model="addFormOut.id" :disabled="true"></el-input></el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="姓名：" prop="name"><el-input v-model="addFormOut.name" :disabled="false"></el-input></el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="区域：" prop="region">
+                        <el-select v-model="addFormOut.region" placeholder="请选择区域" size="small">
+                            <el-option v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="8">
+                    <el-form-item label="密码：" prop="pwd"><el-input v-model="addFormOut.pwd"     :disabled="false"></el-input></el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="邮箱：" prop="email"><el-input v-model="addFormOut.email" :disabled="false"></el-input></el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="8">
+                    <el-form-item label="性别：" prop="sex">
+                        <el-col :span="10">
+                            <el-radio-group v-model="addFormOut.sex" ><!--class="_font_class"-->
+                                <el-radio v-for="item in sexRadioOptions"
+                                          :key="item.value"
+                                          :label="item.value">{{item.label}}
+                                </el-radio>
+                            </el-radio-group>
+                        </el-col>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :span="12">
+                    <el-form-item label="年龄：" prop="age"><el-input v-model="addFormOut.age"     :disabled="false"></el-input></el-form-item>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="12">
+                    <el-form-item label="生日：" prop="birthday"><el-date-picker type="date" placeholder="选择日期" v-model="addFormOut.birthday" size="small"></el-date-picker></el-form-item>
+                </el-col>
+            </el-row>
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button class="confirmOk_add"      @click="confirmOk_add">确认</el-button> <!--class="okButton"  class="returnButton" -->
+            <el-button class="returnButton"  @click="dialogFormVisible = false">取消</el-button>
+            <!--<el-button @click="outExel2" style="color: #fff;background-color:rgb(0,91,172);border-color:#20a0ff0;position:absolute;right:45px;width:76px;">导出</el-button>-->
+        </div>
+    </el-dialog>
+</div>
+
+<footer align="center">
+    <p>&copy; Spring Boot Demo</p>
+</footer>
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app3',
+        mounted: function () { this.isComplete = true; },
+        data:  {
+
+            isComplete:false,
+            sexData:['男','女'],
+            sexRadioOptions:[{value:'0', label:'男'}, {value:'1', label:'女'},],
+            functionAddData:[],
+            dialogFormVisible:null, //dialog
+            addFormOut: { id:'', name:'', email:'', sex:'', age:'', birthday:'', region:'', },
+            addFormIn: [],          // {success:'',  message:'',}
+            regionValue_dict: [],   //v-model="page3.param.region"
+            regionOptions: [{value:'0', label:'请选择'}, {value:'1', label:'上海'}, {value:'2', label:'西安'}, ],
+            multipleSelection: [],
+            rules:{
+                name: [ {required: true, message: '请输入姓名',          trigger: 'blur'}, ],
+                pwd:  [ {required: true, message: '请输入密码',          trigger: 'blur'},
+                        {min: 2, max: 15, message: '长度为2至15个字符',  trigger: 'blur'}, ],
+                sex:  [ {required: true, message: '请输入性别',          trigger: 'blur'}, ],
+
+
+            },
+            page3:{
+                param: {name: '', region: '',},
+                pageNumber: 1, pageSize: 10, total: 0,
+            },
+            loading: false,
+
+
+
+
+
+
+
+            input: '',
+
+            tableData: [],          //表格当前页数据
+            totalCount: 1000,       //默认数据总数
+
+            criteria: '',           //搜索条件
+            pageNumber: 1,         //当前页码
+            pagesize: 10,           //默认每页数据量
+            sort: "",               //可为空
+            order: "",              //可为空
+
+
+
+            filters: {name: "", region: "",},
+            page4:{
+                // criteria: '',        //搜索条件
+                pageNumber: 1,          //当前页码
+                pageSize: 10,           //默认每页数据量
+                sort: "",               //可为空
+                order: "",              //可为空
+                query: {name: "", region: "",},
+
+                totalCount: 0,
+
+                //SearchVo
+                // startDate: "ha1",
+                // endDate: "ha2",
+            },
+
+
+            highlightId: -1,        //默认高亮行数据id
+            start: 1,               //查询的页码
+
+            multipleSelection: [],  //多选数组
+            select: '',             //下拉菜单选项
+
+
+        },
+
+        methods: {
+            loadData: function(){ // pageVo :       criteria, pageNum, pageSize
+                this.$http.post('/upmsTestuserController/getstu', this.page4) //vm.$data.page4 / this.page4
+                    .then(function(res){
+                        this.tableData  = res.data.result.content;
+                        this.page4.totalCount = res.data.result.totalElements;
+                        // this.totalCount = res.data.result.totalElements;
+                    },function(){
+                        console.log('failed');
+                    })
+                    // .catch(e => this.formLoading = false)
+                    .catch(function (e) {
+                        this.formLoading = false;
+                    } )
+            },
+
+            addBut: function () {
+                this.dialogFormVisible  = true;
+            },
+            confirmOk_add: function(){
+                var va = 0;
+                this.$refs['addFormOut_valid'].validate(function (valid) {
+                    if(valid)   {}
+                    else        {va = 1;}
+                });
+                var formArray = this.$refs['addFormOut_valid'];
+                for (let i = 0; i < formArray.length; i++) {
+                    formArray[i].validate(function (vali) {
+                        if(vali)    {}
+                        else        {va = 1;}
+                    });
+                }
+                if(va ==1){
+                    return false;
+                }
+
+                var params = {};
+                params['id']    = vm.$data.addFormOut.id;   params['sex']       = vm.$data.addFormOut.sex;
+                params['name']  = vm.$data.addFormOut.name; params['age']       = vm.$data.addFormOut.age;
+                params['pwd']   = vm.$data.addFormOut.pwd;  params['birthday']  = vm.$data.addFormOut.birthday;
+                params['email'] = vm.$data.addFormOut.email;params['region']    = vm.$data.addFormOut.region;
+                vm.loading = true;
+
+                var par = this.addFormOut;
+                this.$http.post('/upmsTestuserController/add', par).then(function(res){
+                    this.loading = false;
+                    if(res.body.success){
+                        this.dialogFormVisible = false;
+                        this.loadData();
+                        this.$message({type: 'success', message: '保存成功!'});
+                    } else {
+                        vm.$message({showClose: true, message: res.body.msg, type:"error", duration:2500});
+                    }
+                }).catch(function (e) {  // .catch(e => this.formLoading = false)
+                    console.log('failed');
+                    this.loading = false;
+                })
+
+            },
+
+            handleSelectionChange: function (val) {
+                vm.$data.multipleSelection = val;
+            },
+            delete_multiple: function(){
+                console.log(vm.$data.multipleSelection);
+                var text = "";
+                var arra = vm.$data.multipleSelection;
+                if(arra.length == 0){
+                    vm.$message({message:'请至少选择一项！', type:"warning"});
+                    return false;
+                }
+                vm.$confirm('此操作将永久删除该数据，是否继续？', '提示', {
+                    confirmButtonText:'确定', cancelButtonText:'取消', type:'warning'
+                }).then(function () {
+                    vm.deleteCommon(arra);//注意： 在then(function()...中 不能用 this.deleteCommon(arra): Uncaught (in promise) TypeError: this.deleteCommon is not a function
+                })
+            },
+
+            deleteCommon: function (arra){
+                vm.$http.post('/upmsTestuserController/delete/po/list', arra)
+                    .then(function(res){
+                        vm.$message({message:'删除成功！', type:"warning"});
+                        this.loadData();
+                    },function(){
+                        console.log('failed');
+                        vm.$message({message:'删除失败！', type:"warning"});
+                    });
+            },
+
+            delete_one: function(index, row){
+                var arra = new Array();
+                arra.push(row);
+                vm.$confirm('此操作将永久删除该数据，是否继续？', '提示', {
+                    confirmButtonText:'确定', cancelButtonText:'取消', type:'warning'
+                }).then(function () {
+                    vm.deleteCommon(arra);//注意： 在then(function()...中 不能用 this.deleteCommon(arra): Uncaught (in promise) TypeError: this.deleteCommon is not a function
+                })
+            },
+
+            handleEdit: function(index, row){
+                var id_temp = row.id;
+                if(id_temp != '')
+                    //此处找[静态界面]
+                    //html--->html: https://www.oschina.net/question/930697_2273297?sort=time https://blog.csdn.net/poop1250/article/details/81146601
+                    // window.location.href = "/pages/com.moudle1.project1/testuser/testuser_edit.html"+ "?theEditId="+ row.id;
+                    window.event.returnValue=false;
+
+                window.location.href = "/pages/com.moudle1.project1/testuser/testuser_edit.html"+ "?theEditId="+ row.id;
+
+            },
+
+            queryPage: function () {
+                this.loadData();
+            },
+
+            //---------冗余--------始-----------------------------------------------------------
+            functionAdd: function(){
+                this.data.functionAddData.push({id:"", name:"", pwd:"",email:"",});
+            },
+
+
+            //多选响应
+            handleSelectionChange: function(val) {
+                this.multipleSelection = val;
+            },
+
+
+
+            //多项删除
+            deletenames: function(){
+               if(this.multipleSelection.length==0)
+                   return;
+               var array = [];
+               this.multipleSelection.forEach((item) => {
+                   array.push(item.id);
+               })
+               this.$http.post('../delete',{"array":array},{emulateJSON: true}).then(function(res){
+                   this.loadData(this.criteria, this.pageNumber, this.pagesize);
+               },function(){
+                   console.log('failed');
+               });
+            },
+
+
+            //添加
+            add: function () {
+                // this.$prompt('请输入名称', '提示', {
+                //     confirmButtonText: '确定',
+                //     cancelButtonText: '取消',
+                // }).then(({value}) => {
+                //     if (value == '' || value == null)
+                //         return;
+                //     this.$http.post('../add', {"name": value}, {emulateJSON: true}).then(function (res) {
+                //         this.loadData(this.criteria, this.pageNumber, this.pagesize);
+                //     }, function () {
+                //         console.log('failed');
+                //     });
+                // }).catch(() => {
+                //
+                // });
+            },
+
+            //搜索
+            search: function(){
+                this.loadData(this.criteria, this.pageNumber, this.pagesize);
+            },
+
+
+
+
+            //---------冗余--------末-----------------------------------------------------------
+
+            //点击行响应
+            handleclick: function(row, event, column){
+                this.highlightId = row.id;
+            },
+            //改变当前点击的行的class，高亮当前行
+            tableRowClassName: function(row, index){
+                if(row.id == this.highlightId) {
+                    return 'info-row';
+                }
+            },
+            
+
+
+
+            
+
+
+
+
+
+
+            // formatterSex: function (row, colunm) {
+            //     var text = '';
+            //     var arr = vm.$data.sexRadioOptions;
+            //     for(var dd=0; dd<arr.length; dd++){
+            //         if((row.sex) == dd){ text = arr[dd]; }
+            //     }
+            //     return text;
+            // },
+            formatterSex: function (row, colunm) {
+                var text = '';
+                var arr = vm.$data.sexRadioOptions;
+                for(var i=0; i<arr.length; i++){
+                    // sexRadioOptions:[{value:'0', label:'男'}, {value:'1', label:'女'},],
+                    var po  = arr[i];
+                    if((row.sex) == po.value){ text = po.label; }
+                }
+                return text;
+            },
+            formatterRegion: function (row, colunm) {
+                var text = '';
+                var arr = vm.$data.regionOptions;
+                for(var i=0; i<arr.length; i++){
+                    if((row.region) == arr[i].value){ //严格的来说: 地区由字典表代码 标识！
+                        text = arr[i].label;
+                    }else if((row.region) == 0){ text =''; }
+                }
+                return text;
+            },
+
+
+
+            //每页显示数据量变更
+            handleSizeChange: function(val) {
+                // this.pagesize = val; //vm.$data.page3.pageSize = val;
+                // this.loadData(this.criteria, this.pageNumber, this.pagesize);
+
+                this.page4.pageSize = val;
+                this.loadData();
+            },
+
+            //页码变更
+            handleCurrentChange: function(val) {
+                // this.pageNumber = val;
+                // this.loadData(this.criteria, this.pageNumber, this.pagesize);
+
+                this.page4.pageNumber = val;
+                this.loadData();
+            },
+
+
+
+        },// methods end
+
+
+    });
+
+    //载入数据
+    // vm.loadData(vm.criteria, vm.pageNumber, vm.pagesize);
+    // this.loadData(); //此处不能用this.
+    vm.loadData();
+
+
+</script>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑界面</title>
+
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.js"></script>
+    <script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@1.4/lib/theme-default/index.css">
+    <script src="https://unpkg.com/element-ui@1.4/lib/index.js"></script>
+
+    <script type="text/javascript" src="/public/com.moudle1/static/js/common/tools.js"></script>
+    <script type="text/javascript" src="/public/com.moudle1/static/js/common/public.js"></script>
+    <script type="text/javascript" src="/public/com.moudle1/static/js/jquery/jquery-2.2.4.min.js" ></script>
+
+
+    <style>
+        [v-cloak]{ display:none} /*加载页面出现闪烁问题的解决*/
+    </style>
+</head>
+<body>
+<div id="app_edit" style="overflow-x:hidden;" v-loading="loading" element-loading-text="拼命加载中">
+
+    <el-collapse value="1" >
+        <el-collapse-item title="查询条件" name="1">
+
+            <el-form :model="addFormOut" :rules="rules" ref="addFormOut_valid" label-width="100px">
+                <el-row>
+                    <el-col :span="8">
+                        <el-form-item label="编号：" prop="id"><el-input v-model="addFormOut.id" :disabled="true"></el-input></el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-form-item label="姓名：" prop="name"><el-input v-model="addFormOut.name" :disabled="false"></el-input></el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-form-item label="区域：" prop="region">
+                            <el-select v-model="addFormOut.region" placeholder="请选择区域" size="small">
+                                <el-option v-for="item in regionOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row>
+                    <el-col :span="8">
+                        <el-form-item label="密码：" prop="pwd"><el-input v-model="addFormOut.pwd"     :disabled="false"></el-input></el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-form-item label="邮箱：" prop="email"><el-input v-model="addFormOut.email" :disabled="false"></el-input></el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row>
+                    <el-col :span="8">
+                        <el-form-item label="性别：" prop="sex">
+                            <el-col :span="10">
+                                <el-radio-group v-model="addFormOut.sex" ><!--class="_font_class"-->
+                                    <el-radio v-for="item in sexRadioOptions"
+                                              :key="item.value"
+                                              :label="item.value" v-cloak>{{item.label}}
+                                    </el-radio>
+                                </el-radio-group>
+                            </el-col>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="年龄：" prop="age"><el-input v-model="addFormOut.age"     :disabled="false"></el-input></el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col :span="12">
+                        <el-form-item label="生日：" prop="birthday"><el-date-picker type="date" placeholder="选择日期" v-model="addFormOut.birthday" size="small"></el-date-picker></el-form-item>
+                    </el-col>
+                </el-row>
+
+            </el-form>
+
+
+
+    </el-collapse-item>
+    </el-collapse>
+
+    <div slot="footer" class="dialog-footer">
+        <el-button class="confirmOK"      @click="confirmOk" v-cloak>确认</el-button> <!--class="okButton"     @click="confirmOK"  class="returnButton" -->
+        <el-button class="returnButton"   @click="cancel" v-cloak>取消</el-button>
+        <!--<el-button @click="outExel2" style="color: #fff;background-color:rgb(0,91,172);border-color:#20a0ff0;position:absolute;right:45px;width:76px;">导出</el-button>-->
+    </div>
+
+
+</div>
+</body>
+<!--<script type="text/javascript" src="/static/js/common/tools.js"></script>-->
+<!--<script type="text/javascript" src="/static/js/jquery/jquery-2.2.4.min.js" ></script>-->
+<script type="text/javascript">
+    var theEditId = getQueryString('theEditId');
+
+    var vm = new Vue({
+        el: '#app_edit',
+        mounted: function () {
+            this.loadData();
+        },
+        data:  {
+            addFormIn: [],
+            sexRadioOptions:[{value:'0', label:'男'}, {value:'1', label:'女'},],
+            regionOptions: [{value:'0', label:'请选择'}, {value:'1', label:'上海'}, {value:'2', label:'西安'}, ],
+            // addFormOut: { id:'', name:'', email:'', sex:'', age:'', birthday:'', region:'', },
+            addFormOut: {},
+
+
+            loading: false,
+
+            rules:{
+                name: [ {required: true, message: '请输入姓名',          trigger: 'blur'}, ],
+                pwd:  [ {required: true, message: '请输入密码',          trigger: 'blur'},
+                        {min: 2, max: 15, message: '长度为2至15个字符',  trigger: 'blur'}, ],
+                sex:  [ {required: true, message: '请输入性别',          trigger: 'blur'}, ],
+
+
+            },
+
+            saveAllDataAndFk:{
+                FKArrayOne:{
+                    ChoisedOne_dim1Code : '',
+                },
+                getDim2BeanList: '',
+            },
+            dialogDatas: [],
+
+        },
+        methods: {
+
+
+            loadData: function(){ //criteria, pageNum, pageSize
+                this.$http.get('/upmsTestuserController/get/'+ theEditId)
+                    .then(function(res){
+                        this.addFormOut = res.body;
+                        checkOption(this.sexRadioOptions, res.body.sex);
+                    },function(){
+                        console.log('failed');
+                    });
+            },
+
+            confirmOk: function(){
+                var va = 0;
+                this.$refs['addFormOut_valid'].validate(function (valid) {
+                    if(valid)   {}
+                    else        {va = 1;}
+                });
+                var formArray = this.$refs['addFormOut_valid'];
+                for (let i = 0; i < formArray.length; i++) {
+                    formArray[i].validate(function (vali) {
+                        if(vali)    {}
+                        else        {va = 1;}
+                    });
+                }
+                if(va ==1){
+                    return false;
+                }
+
+                var params = {};
+                params['id']    = vm.$data.addFormOut.id;   params['sex']       = vm.$data.addFormOut.sex;
+                params['name']  = vm.$data.addFormOut.name; params['age']       = vm.$data.addFormOut.age;
+                params['pwd']   = vm.$data.addFormOut.pwd;  params['birthday']  = vm.$data.addFormOut.birthday;
+                params['email'] = vm.$data.addFormOut.email;params['region']    = vm.$data.addFormOut.region;
+                vm.loading = true;
+
+                var par = {};
+                par["theEditId"] = theEditId;
+                par["bean"] = this.addFormOut;
+                
+
+                // $.ajax({
+                //     type: "post",
+                //     url: "/sh/upmsTestuserController/update",
+                //     data:  JSON.stringify(par), //对象数组需要JSON.stringify
+                //     contentType: "application/json;charset=UTF-8",
+                //     async: false,
+                //     success: function (res) {
+                //         
+                //         this.loading = false;
+                //         //此处找controller
+                //         window.location.href='/sh/upmsTestuserController/turnPage/main'
+                //     }
+                // });
+
+                this.$http.post('/upmsTestuserController/update', par)
+                    .then(function(res){
+                        this.loading = false;
+                        if(res.body.success){
+                            this.addFormOut = res.body;
+
+                            //此处找controller
+                            window.location.href='/upmsTestuserController/turnPage/main'
+
+                            // $.ajax({ ajax不支持页面跳转！！！
+                            //     type: "get",
+                            //     url: "/sh/upmsTestuserController/turnPage/main",
+                            //     contentType: "application/json;charset=UTF-8",
+                            //     async: false,
+                            //     success: function (data) { }
+                            // });
+                            // this.$http.get('/sh/upmsTestuserController') 请求data不支持页面跳转！！！
+                            //     .then(function(res){
+                            //     }
+
+                        } else {
+                            this.loading = false;
+                            return false;
+                        }
+                    },function(){
+                        console.log('failed');
+                    });
+
+
+
+
+                    // let ss = { //模拟提交数据
+                    //     FKArrayOne:{
+                    //         "targetExplain": "",
+                    //         "cat_three_code": "",
+                    //     },
+                    //     dialogDatas: [],
+                    // }
+                    //只为测试接收 前提提交复杂的 参数 ：
+                    // var saveAllDataAndFk = {};
+                    // saveAllDataAndFk["FKArrayOne"] = vm.$data.saveAllDataAndFk.FKArrayOne;
+                    // saveAllDataAndFk["FKArrayOne"]["targetExplain"] = vm.$data.targetExplain;
+                    // saveAllDataAndFk["FKArrayOne"]["cat_three_code"] = vm.$data.cat_three_code;
+                    // saveAllDataAndFk["dialogDatas"] = vm.$data.dialogDatas;
+                    // this.$http.post('/sh/upmsTestuserController/saveData', saveAllDataAndFk)
+                    //     .then(function(res){
+                    //         
+                    //         this.addFormOut = res.body;
+                    //     },function(){
+                    //         console.log('failed');
+                    //     });
+
+            },
+            cancel: function () {
+                window.history.go(-1)
+            },
+
+
+
+
+        },
+    });
+
+
+
+</script>
+</html>

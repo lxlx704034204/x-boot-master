@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>国家</title>
+
+    <!--搜索：  "src="//cdn.bootcss.com/element-ui/" recently 第7页  el-dialog
+                     "https://unpkg.com/element-ui/"  第7页
+         unpkg 与 BootCDN：        https://www.cnblogs.com/tu-0718/p/7521099.html
+                                  https://www.zhihu.com/question/62938096
+
+         -->
+
+    <!--<link rel="stylesheet" href="../static/css/css1.css">-->
+
+   <!--
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-i18n/dist/vue-i18n.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    &lt;!&ndash;<script src="https://unpkg.com/vue@2.3.4/dist/vue.runtime.min.js"></script>&ndash;&gt;
+
+    <script src="https://unpkg.com/vuex@2.3.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/2.3.1/vuex.min.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.min.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+-->
+
+
+    <!-- 很快！[纯//unpkg.com/]  dialog正常 ，axios.create:   https://github.com/gdky005/ZKTeamDjango/blob/eaaaad7c7dda376f402b16ad1a9af86439b9c0ff/Subscribe/templates/index_sub.html-->
+    <!-- import Vue before Element  https://github.com/gdky005/ZKTeamDjango/blob/eaaaad7c7dda376f402b16ad1a9af86439b9c0ff/Subscribe/templates/index_sub.html-->
+    <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+
+
+
+    <!-- 晚上慢[风格更清爽]！[混合：unpkg/cdn ]  dialog正常 ， this.$http.post:    https://github.com/RuriAndLee/jeecg_375/blob/261bf6a397165dce4e5609a5e60362a4bc9c9c7e/src/main/resources/jeecg/ext-common-template/element/onetomany/webapp/webpage/%24%7BbussiPackage%7D/%24%7BentityPackage%7D/%24%7BentityNameUncapFirst%7DList.jsp-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui@2.3.7/lib/theme-chalk/index.css">-->
+    <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script>-->
+    <!--<script src="https://unpkg.com/element-ui@2.3.7/lib/index.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>-->
+
+
+    <!-- 晚上也超快！[纯//cdn.bootcss.com/]  dialog正常 ， this.$http.post:   https://github.com/JoeSimith/Hairdressing/blob/ba0605bcd006d961ce6deebbd19c62372536a3fb/WebRoot/WEB-INF/jsp/system/admin/login.jsp-->
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/vue/2.4.4/vue.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/element-ui/1.4.6/index.js"></script>-->
+    <!--<link href="https://cdn.bootcss.com/element-ui/1.4.6/theme-default/index.css" rel="stylesheet">-->
+    <!--<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">-->
+    <!--<script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>-->
+
+
+
+    <!-- 晚上也超快！  dialog正常 ， this.$http.post:    https://github.com/Feiwenkeke/jsp_web_webapp/blob/5be85d28e75e48ca94f80c26a74299191e8ebe37/web/ch3_show.jsp-->
+    <script src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+    <script src="https://cdn.bootcss.com/element-ui/2.3.6/index.js"></script>
+    <link href="https://cdn.bootcss.com/element-ui/2.3.6/theme-chalk/index.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>
+
+
+
+    <!-- 晚上慢！分布式cloud  dialog正常 ， this.$http.post:  https://github.com/shenfengzhusheng/scm-cloud/blob/6bc09205d766bcbfddfeda7bfb23be18ee93f7a7/scm-manager/src/main/webapp/WEB-INF/views/jsp/JobManager.jsp-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui@2.0.5/lib/theme-chalk/index.css">-->
+    <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+    <!--<script src="http://cdn.bootcss.com/vue-resource/1.3.4/vue-resource.js"></script>-->
+    <!--<script src="https://unpkg.com/element-ui@2.0.5/lib/index.js"></script>-->
+
+
+    <!-- 晚上慢！ dialog正常 ， this.$http.post: https://github.com/bairuifei/chpro/blob/c26f110a29539958e06ddc953ef8e866193ff863/src/main/webapp/webpage/com/jeecg/demo/vueNewList.jsp-->
+    <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script>-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui@2.3.7/lib/theme-chalk/index.css">-->
+    <!--<script src="https://unpkg.com/element-ui@2.3.7/lib/index.js"></script>-->
+
+    <!--  晚上慢！  dialog正常 ，   this.$http ：  https://github.com/lzcwfx/jeecg-business/blob/a85710d67c3406d475b2d895f3d6a6af7665badd/src/main/webapp/webpage/com/jeecg/demo/vueList.jsp-->
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script>-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui@1.4/lib/theme-default/index.css">-->
+    <!--<script src="https://unpkg.com/element-ui@1.4/lib/index.js"></script>-->
+
+    <!-- 晚上慢！  dialog正常 ， this.$http.post: https://github.com/yzw0921/weigu/blob/a2b2a3e3a8aafbc25bfeabd0755e24de279dd045/src/main/webapp/webpage/com/jeecg/demo/vueList.jsp-->
+    <!--<script src="https://cdn.bootcss.com/vue/2.2.2/vue.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/vue-resource/1.5.0/vue-resource.js"></script>-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui@1.4/lib/theme-default/index.css">-->
+    <!--<script src="https://unpkg.com/element-ui@1.4/lib/index.js"></script>-->
+
+
+    <!-- 晚上慢！  axios.post dialog正常 ：  ： https://github.com/zljxzs/Vue/blob/cd706ed5ff4ae284ecd33e510fdc0d3eb4ea81f4/src/main/webapp/WEB-INF/views/element_table.jsp-->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <!--<script type=text/javascript src="../static/js/jquery.js"></script>-->
+    <!--&lt;!&ndash; import Vue before Element  axios.post &ndash;&gt;-->
+    <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+    <!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+
+    <!-- 有点慢！ dialog正常 ， axios.post: https://github.com/aistard/shop/blob/94ef242e0f197fdcf0b54635ccb0e49d604d164e/src/main/webapp/WEB-INF/views/index.jsp -->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <!--<script src="https://unpkg.com/element-ui/lib/index.js"></script>-->
+    <!--<script src="https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/jquery/jquery-1.10.2.min_65682a2.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>-->
+
+
+
+    <!-- dialog无效
+     Vue.http.options.emulateHTTP = true;		this.$http.post -->
+    <!--<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
+    <!--<link rel="stylesheet" href="//cdn.bootcss.com/element-ui/1.1.2/theme-default/index.css">-->
+    <!--<script src="//cdn.bootcss.com/vue/2.1.8/vue.min.js"></script>-->
+    <!--<script src="//cdn.bootcss.com/element-ui/1.1.2/index.js"></script>-->
+    <!--<script src="//cdn.bootcss.com/vue-resource/1.0.3/vue-resource.min.js"></script>-->
+
+
+
+
+
+
+
+</head>
+<body>
+<div id="vm" >
+
+    <!--工具条-->
+    <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+        <el-form :inline="true" :model="filters">
+            <!--<el-form-item>-->
+            <!--<el-input v-model="filters.query" placeholder="姓名/手机号等条件" />-->
+            <!--</el-form-item>-->
+            <el-form-item>
+                <el-input v-model="filters.name" placeholder="名字" />
+            </el-form-item>
+            <el-form-item>
+                <el-input v-model="filters.place" placeholder="籍贯" />
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" v-on:click="handleQuery" icon="el-icon-search">查询</el-button>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" v-on:click="handleAdd" icon="el-icon-plus">添加</el-button>
+            </el-form-item>
+        </el-form>
+    </el-col>
+
+    <el-table :data="rows" style="width: 100%;overflow: auto;"  stripe border highlight-current-row v-loading="pageLoading"><!--:height="clientHeight"-->
+        <el-table-column label="注册日期" width="180">
+            <template scope="scope">
+                <i class="el-icon-time"></i>
+                <span style="margin-left: 10px">{{ scope.row.date }}</span>
+            </template>
+        </el-table-column>
+        <el-table-column label="姓名" width="180" :show-overflow-tooltip="true">
+            <template scope="scope">
+                <el-popover trigger="hover" placement="top">
+                    <p>姓名: {{ scope.row.name }}</p>
+                    <p>住址: {{ scope.row.place }}</p>
+                    <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                    </div>
+                </el-popover>
+            </template>
+        </el-table-column>
+        <el-table-column label="籍贯" width="180" :show-overflow-tooltip="true">
+            <template scope="scope">
+                <el-popover trigger="hover" placement="top">
+                    <p>姓名: {{ scope.row.name }}</p>
+                    <p>住址: {{ scope.row.place }}</p>
+                    <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                    </div>
+                </el-popover>
+            </template>
+        </el-table-column>
+        <el-table-column prop="sex" label="性别" width="100" align="center" :show-overflow-tooltip="true">
+            <template scope="scope">
+                {{scope.row.sex===1?'男':'女'}}
+            </template>
+        </el-table-column>
+        <el-table-column label="操作">
+            <template scope="scope">
+                <el-button size="mini" type="primary"
+                           @click="handleEdit(scope.$index, scope.row)"><i class="el-icon-edit"></i>编辑</el-button>
+                <el-button size="mini" type="danger"
+                           @click="handleDelete(scope.$index, scope.row)"><i class="el-icon-delete"></i>删除</el-button>
+            </template>
+        </el-table-column>
+    </el-table>
+    <!--底部-->
+    <el-col :span="24" class="toolbar">
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="page"
+                :page-sizes="[2, 5, 10, 20, 30, 40]"
+                :page-size="size"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+                style="float:bottom;">
+        </el-pagination>
+    </el-col>
+
+    <!--对话框  :title="form && form.id ? '编辑' : '新增' "                     :close-on-click-modal="false" -->
+    <el-dialog :title="form && form.id ? '编辑' : '新增' " :visible.sync="formVisible" :close-on-click-modal="false">
+        <el-form :model="form" label-width="100px" :rules="rules" ref="form">
+            <el-form-item label="姓名" prop="name">
+                <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="性别" prop="sex">
+                <el-radio-group v-model="form.sex">
+                    <el-radio :label="1">男</el-radio>
+                    <el-radio :label="2">女</el-radio>
+                </el-radio-group>
+            </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+            <el-button @click.native="formVisible = false">取消</el-button>
+            <el-button type="primary" @click.native="handleSubmit" :loading="formLoading">提交</el-button>
+        </div>
+    </el-dialog>
+
+
+</div>
+
+</body>
+
+
+
+<script>
+    const rules = {
+        name: [{required: true, message: '请输入姓名', trigger: 'blur'}],
+        sex:  [{required: true, message: '请选择性别', trigger: 'change'}]
+    }
+
+
+    // Vue.http.options.emulateJSON = true;
+    // Vue.http.options.emulateHTTP = true;
+    var vm = new Vue({
+        el: '#vm',
+        mounted: function () { // mounted中要用this.
+            // this.getData();
+            // vm.loadData(vm.criteria, vm.currentPage, vm.pagesize); //不能用vm.
+            // this.loadData(this.criteria, this.currentPage, this.pagesize);
+            // layout(){
+            //     return this.small ? 'total, prev, pager, next' : 'total, sizes, prev, pager, next, jumper';
+            // }
+            window.addEventListener('resize', this.initHeight)
+            this.initHeight()
+            this.getRows();
+        },
+
+        // let: ax= axios.create({ //instance
+        //     baseURL: 'https://www.zkteam.cc/',
+        //     timeout: 3000,
+        //     // headers: {'Access-Control-Allow-Origin': '*'}
+        // }),
+
+        data() {
+
+
+
+            return {
+                page: 1,                //页码
+                size: 2,                //每页数量
+                total: 0,               //总数
+                rows: [],               //页面数据
+                filters: {name: "", place: "",},            //查询条件 query:"", name:""
+
+                pageLoading: false,     //页面载入状态
+                clientHeight: '100%',   //列表高度
+                form: {},               //表单数据
+                rules: rules,           //验证规则
+                formVisible: false,     //对话框隐藏状态
+                formLoading: false      //表单提交状态
+
+            };
+
+        },
+
+        let: handleQuery = function() {               //查询 let: handleQuery = function() {
+            this.page = 1
+            this.getRows()
+        },
+        let: getRows = function() {                   //获取分页
+            if (this.pageLoading)
+                return
+            this.pageLoading = true
+
+            let params = {
+                page: this.page,
+                size: this.size,
+                query: this.filters//.name
+            }
+            //调用post请求 this.$axios.post  $http
+            this.$http.post('/member/loadPage', params)
+                .then(res => { //.then(function (response) {
+                    debugger
+                    this.pageLoading = false
+                    if (!res.data || !res.data.rows)
+                        return
+                    this.total = res.data.total //总数赋值
+                    this.rows = res.data.rows //页面数据赋值
+                })
+                .catch(e => this.pageLoading = false)
+        },
+
+        let: initHeight = function() {    //初始化高度
+            this.clientHeight = (document.documentElement.clientHeight - 258) + 'px'
+        },
+
+        let: handleSubmit = function() {              //提交数据
+            if (this.formLoading)
+                return
+
+            this.$refs.form.validate(valid => {
+                if (!valid)
+                    return
+
+                this.formLoading = true
+
+                // 调用http协议
+                this.$http.post('/member/save', this.form).then(res => {
+                    this.formLoading = false
+                    if (!res.data.success) {
+                        this.$message({
+                            showClose: true,
+                            message: res.data.message,
+                            type: 'error'
+                        });
+                        return
+                    }
+                    this.$message({
+                        type: 'success',
+                        message: '保存成功!'
+                    })
+
+                    //重新载入数据
+                    this.page = 1
+                    this.getRows()
+                    this.formVisible = false
+                }).catch(e => this.formLoading = false)
+            })
+        },
+
+        let: handleSizeChange = function(val) { //每页显示数据量变更
+            this.size = val;
+            //vm.$data.page3.pageSize = val;
+            // this.loadData(this.criteria, this.currentPage, this.pagesize);
+            this.getRows()
+        },
+        let: handleCurrentChange = function(val) {    //页数改变
+            this.page = val
+            this.getRows()
+        },
+
+        let: handleAdd = function() {
+            this.form = {}
+            this.form.sex = 1
+            this.formVisible = true
+        },
+        let: handleEdit = function(index, row) {
+            this.form = Object.assign({}, row)
+            this.formVisible = true
+        },
+        let: handleDelete = function(index, row) {
+            if (this.pageLoading)
+                return
+
+            this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.pageLoading = true
+                this.$http.get('/member/remove/' + row.id).then(res => {
+                    this.pageLoading = false
+                    if (!res.data.success) {
+                        this.$message({
+                            type: 'error',
+                            message: res.data.message
+                        })
+                        return
+                    }
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    })
+                    this.page = 1
+                    this.getRows()
+                }).catch(e => this.pageLoading = false)
+            }).catch(e => {})
+        },
+
+
+        methods:{
+
+            handleQuery,          //查询
+
+            handleAdd,            //添加
+            handleEdit,           //修改
+            handleDelete,         //删除
+
+            handleSizeChange,
+            handleCurrentChange,  //页数改变
+            getRows,              //获取分页
+            initHeight,           //初始化高度
+            handleSubmit,          //提交数据
+
+
+
+        },
+
+
+
+
+
+
+    })
+
+    // vm.getRows();
+</script>
+
+
+</html>
